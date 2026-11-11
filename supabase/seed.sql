@@ -28,3 +28,8 @@ insert into public.consultas (profissional_id, data, hora, paciente_nome, pacien
   ('33333333-3333-4333-8333-333333333333', public.hoje_sp(),     '15:00', 'Lúcia Teste',      null,                   '(24) 90000-0005', 'pendente',   'recepcao'),
   ('11111111-1111-4111-8111-111111111111', public.hoje_sp() + 1, '08:00', 'Bruno Amostra',    'bruno@exemplo.com',    '(24) 90000-0006', 'pendente',   'online'),
   ('33333333-3333-4333-8333-333333333333', public.hoje_sp() + 1, '10:30', 'Carla Simulada',   'carla@exemplo.com',    '(24) 90000-0007', 'pendente',   'online');
+
+-- Os e-mails acima são fictícios: marca os lembretes como já enviados para a
+-- automação (Make) nunca tentar mandar mensagem para esses endereços.
+update public.consultas set lembrete_enviado_em = now()
+where paciente_email like '%@exemplo.com';

@@ -1,0 +1,96 @@
+{
+  "name": "Agenda Clínica · Lembrete de consulta",
+  "flow": [
+    {
+      "id": 1,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": { "handleErrors": true },
+      "mapper": {
+        "url": "https://pmzlegrjqasejohffvnv.supabase.co/rest/v1/rpc/consultas_para_lembrete",
+        "method": "post",
+        "headers": [
+          { "name": "apikey", "value": "COLE_AQUI_A_CHAVE_SECRETA" },
+          { "name": "Authorization", "value": "Bearer COLE_AQUI_A_CHAVE_SECRETA" }
+        ],
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "data": "{}",
+        "parseResponse": true,
+        "serializeUrl": false,
+        "shareCookies": false,
+        "rejectUnauthorized": true,
+        "followRedirect": true,
+        "followAllRedirects": false,
+        "useQuerystring": false,
+        "gzip": true,
+        "useMtls": false
+      },
+      "metadata": { "designer": { "x": 0, "y": 0, "name": "Buscar consultas de amanhã" } }
+    },
+    {
+      "id": 2,
+      "module": "builtin:BasicFeeder",
+      "version": 1,
+      "parameters": {},
+      "mapper": { "array": "{{1.data}}" },
+      "metadata": { "designer": { "x": 300, "y": 0, "name": "Uma consulta por vez" } }
+    },
+    {
+      "id": 3,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": { "__IMTCONN__": 9507500 },
+      "mapper": {
+        "to": ["{{2.paciente_email}}"],
+        "subject": "Lembrete: sua consulta é amanhã, às {{2.hora}}",
+        "bodyType": "rawHtml",
+        "content": "<p>Olá, {{2.paciente_nome}}!</p>\n<p>Sua consulta com <strong>{{2.profissional}}</strong> é amanhã, às <strong>{{2.hora}}</strong>.</p>\n<p><a href=\"https://plantaosaude.netlify.app/confirmar.html?token={{2.token}}\">Confirmar ou cancelar a consulta</a></p>\n<p>Clínica Exemplo</p>"
+      },
+      "metadata": { "designer": { "x": 600, "y": 0, "name": "Enviar lembrete" } }
+    },
+    {
+      "id": 4,
+      "module": "http:ActionSendData",
+      "version": 3,
+      "parameters": { "handleErrors": true },
+      "mapper": {
+        "url": "https://pmzlegrjqasejohffvnv.supabase.co/rest/v1/rpc/marcar_lembrete_enviado",
+        "method": "post",
+        "headers": [
+          { "name": "apikey", "value": "COLE_AQUI_A_CHAVE_SECRETA" },
+          { "name": "Authorization", "value": "Bearer COLE_AQUI_A_CHAVE_SECRETA" }
+        ],
+        "bodyType": "raw",
+        "contentType": "application/json",
+        "data": "{\"p_id\": \"{{2.id}}\"}",
+        "parseResponse": false,
+        "serializeUrl": false,
+        "shareCookies": false,
+        "rejectUnauthorized": true,
+        "followRedirect": true,
+        "followAllRedirects": false,
+        "useQuerystring": false,
+        "gzip": true,
+        "useMtls": false
+      },
+      "metadata": { "designer": { "x": 900, "y": 0, "name": "Marcar lembrete como enviado" } }
+    }
+  ],
+  "metadata": {
+    "version": 1,
+    "instant": false,
+    "designer": { "orphans": [] },
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "confidential": true,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    }
+  }
+}

@@ -22,3 +22,9 @@
   to = "/index.html"
   status = 404
   force = true
+
+[[redirects]]
+  from = "/make/*"
+  to = "/index.html"
+  status = 404
+  force = true
