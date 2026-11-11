@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<title>Sua consulta · Clínica Exemplo</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <div class="container"><a class="logo" href="index.html" data-clinica>Clínica Exemplo</a></div>
+</header>
+
+<main class="estreito" style="padding:1.5rem 0 3rem">
+  <h1 style="font-size:1.5rem">Sua consulta</h1>
+  <div id="aviso" aria-live="polite"></div>
+  <div class="resumo" id="resumo" hidden></div>
+  <div class="linha-acoes" id="acoes" hidden>
+    <button class="btn" type="button" id="confirmar">Confirmar presença</button>
+    <button class="btn perigo" type="button" id="cancelar">Não poderei ir</button>
+  </div>
+  <p id="rodape" hidden style="margin-top:1.5rem">Dúvidas? Ligue para <span data-telefone></span>. <a href="agendar.html">Agendar outra consulta</a></p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/confirmar.js"></script>
+</body>
+</html>

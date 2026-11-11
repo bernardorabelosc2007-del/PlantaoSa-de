@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agendar consulta · Clínica Exemplo</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <div class="container">
+    <a class="logo" href="index.html" data-clinica>Clínica Exemplo</a>
+    <nav><a href="index.html">Voltar ao site</a></nav>
+  </div>
+</header>
+
+<main class="estreito" style="padding:1.2rem 0 3rem">
+  <h1 style="font-size:1.5rem">Agendar consulta</h1>
+  <ol class="passos" id="passos" aria-label="Etapas">
+    <li>Profissional</li><li>Dia e horário</li><li>Seus dados</li>
+  </ol>
+  <div id="aviso" aria-live="polite"></div>
+
+  <section id="p1">
+    <h2 style="font-size:1.1rem">Com quem você quer se consultar?</h2>
+    <div class="opcoes" id="profissionais"><p class="vazio">Carregando…</p></div>
+  </section>
+
+  <section id="p2" hidden>
+    <h2 style="font-size:1.1rem">Escolha o dia</h2>
+    <div class="dias" id="dias"></div>
+    <h2 style="font-size:1.1rem;margin-top:1.2rem">Horários livres</h2>
+    <div class="chips" id="horas"><p class="vazio">Escolha um dia.</p></div>
+    <div class="linha-acoes"><button class="btn sec" type="button" id="voltar1">Voltar</button></div>
+  </section>
+
+  <section id="p3" hidden>
+    <div class="resumo" id="resumo"></div>
+    <form id="form" novalidate>
+      <label for="nome">Nome completo</label>
+      <input id="nome" type="text" autocomplete="name" maxlength="120" required>
+      <label for="email">E-mail</label>
+      <input id="email" type="email" autocomplete="email" inputmode="email" maxlength="160" required>
+      <label for="tel">Telefone (opcional)</label>
+      <input id="tel" type="tel" autocomplete="tel" inputmode="tel" maxlength="30">
+      <label class="check" style="margin-top:1rem">
+        <input type="checkbox" id="aceite" required>
+        <span>Autorizo o uso destes dados apenas para agendar a consulta e enviar o lembrete por e-mail.</span>
+      </label>
+      <div class="linha-acoes">
+        <button class="btn sec" type="button" id="voltar2">Voltar</button>
+        <button class="btn" type="submit" id="enviar">Confirmar agendamento</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="p4" hidden>
+    <div class="aviso ok" role="status"><strong>Consulta agendada.</strong></div>
+    <div class="resumo" id="resumoFinal"></div>
+    <p>Um dia antes, você recebe um e-mail para confirmar ou cancelar. Se precisar desmarcar antes disso, ligue para <span data-telefone></span>.</p>
+    <div class="linha-acoes">
+      <a class="btn sec" href="index.html">Voltar ao site</a>
+      <a class="btn" href="agendar.html">Agendar outra</a>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/agendar.js"></script>
+</body>
+</html>

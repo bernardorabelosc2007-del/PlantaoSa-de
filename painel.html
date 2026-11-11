@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Painel da recepção · Clínica Exemplo</title>
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+<header class="topo">
+  <div class="container">
+    <a class="logo" href="index.html" data-clinica>Clínica Exemplo</a>
+    <nav>
+      <span id="usuario" style="color:var(--suave)"></span>
+      <button class="btn sec peq" type="button" id="sair" hidden>Sair</button>
+    </nav>
+  </div>
+</header>
+
+<main class="container" style="padding:1rem 0 3rem">
+  <div id="aviso" aria-live="polite"></div>
+
+  <!-- Login -->
+  <section id="telaLogin" class="estreito" hidden>
+    <h1 style="font-size:1.4rem">Painel da recepção</h1>
+    <p style="color:var(--suave)">Acesso restrito à equipe da clínica.</p>
+    <form id="formLogin">
+      <label for="loginEmail">E-mail</label>
+      <input id="loginEmail" type="email" autocomplete="username" required>
+      <label for="loginSenha">Senha</label>
+      <input id="loginSenha" type="password" autocomplete="current-password" required>
+      <div class="linha-acoes"><button class="btn largo" type="submit" id="entrar">Entrar</button></div>
+    </form>
+  </section>
+
+  <!-- Agenda -->
+  <section id="telaAgenda" hidden>
+    <div class="barra">
+      <h2 id="tituloDia">Agenda</h2>
+      <button class="btn sec peq" type="button" id="diaAnterior" aria-label="Dia anterior">‹</button>
+      <input type="date" id="dia" aria-label="Dia">
+      <button class="btn sec peq" type="button" id="diaSeguinte" aria-label="Dia seguinte">›</button>
+      <button class="btn sec peq" type="button" id="hoje">Hoje</button>
+    </div>
+    <div class="numeros" aria-label="Resumo do dia">
+      <div class="numero"><b id="nTotal">0</b><span>Agendadas</span></div>
+      <div class="numero"><b id="nConf">0</b><span>Confirmadas</span></div>
+      <div class="numero"><b id="nPend">0</b><span>Pendentes</span></div>
+      <div class="numero"><b id="nCanc">0</b><span>Canceladas</span></div>
+    </div>
+    <div class="barra">
+      <select id="filtroProf" aria-label="Filtrar por profissional"><option value="">Todos os profissionais</option></select>
+      <button class="btn sec peq" type="button" id="atualizar">Atualizar</button>
+      <button class="btn peq" type="button" id="novo">Novo agendamento</button>
+    </div>
+    <div id="lista"></div>
+  </section>
+</main>
+
+<!-- Agendamento feito pela recepção (paciente que ligou) -->
+<dialog id="dlgNovo" aria-labelledby="dlgTitulo">
+  <form id="formNovo">
+    <h2 id="dlgTitulo" style="font-size:1.15rem">Novo agendamento</h2>
+    <div id="avisoNovo" aria-live="polite"></div>
+    <label for="novoProf">Profissional</label>
+    <select id="novoProf" required></select>
+    <label for="novoData">Dia</label>
+    <input id="novoData" type="date" required>
+    <label for="novoHora">Horário livre</label>
+    <select id="novoHora" required><option value="">Escolha profissional e dia</option></select>
+    <label for="novoNome">Nome do paciente</label>
+    <input id="novoNome" type="text" maxlength="120" required>
+    <label for="novoTel">Telefone</label>
+    <input id="novoTel" type="tel" maxlength="30">
+    <label for="novoEmail">E-mail (para receber o lembrete)</label>
+    <input id="novoEmail" type="email" maxlength="160">
+    <div class="linha-acoes">
+      <button class="btn sec" type="button" id="fecharNovo">Cancelar</button>
+      <button class="btn" type="submit" id="salvarNovo">Salvar</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
+<script src="js/comum.js"></script>
+<script src="js/painel.js"></script>
+</body>
+</html>
